@@ -119,7 +119,7 @@ def fnc_loopfrom_googledrive(file_list, val_sheetname, val_column):
             df_acc = pd.read_excel(
                                 r'file attach/' + filename,
                                 sheet_name=val_sheetname, 
-                                skiprows =3,  
+#                                 skiprows =3,  
                                 usecols = val_column,   
                                 index_col = None).fillna('')
                                 #nrows= 3
