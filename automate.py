@@ -209,9 +209,7 @@ def next_available_row(sh_bot):
 def feature_duplicatefile_and_changeowner(url, 
                                           val_destination_folder_backup,
                                           rename_file,
-                                          val_delete_sheetlist,
-                                          list2D_month,
-                                          sh_link_template):
+                                          val_delete_sheetlist):
                                           
                                           
     
@@ -239,6 +237,9 @@ def feature_duplicatefile_and_changeowner(url,
         str(list2D_month)
     ]]
 
+    sh_link_template = gc.open_by_key(url)
+    
+    
     df_log_run = pd.DataFrame(list_add, columns =['Date','filter','Start run time','End run time'])
     append_df_to_sheet(sh_link_template, 'Log Run', df_log_run)
 
