@@ -164,3 +164,25 @@ def feature_call_variable_fromgooglesheet(gc, sheet_lookup, sheet_name, use_col)
         new_list.setdefault(k, []).append(v)
     return new_list
 
+
+def append_tosheet_set_with_dataframe(df, sheet_lookup, sheet_name, my_range):
+    
+    import gspread
+    gc = gspread.oauth() ##appdata roamin gspreadsheet
+    
+    sheet_lookup = sheet_lookup.replace("https://docs.google.com/spreadsheets/d/", "").split("/")[0]
+    sh_link = gc.open_by_key(sheet_lookup)
+
+    s_range = sh_link.worksheet(sheet_name)
+    
+    clear_value_sheet(sh_link, sheet_name , my_range)
+    
+    sheet_destination_sheet = sh_link.worksheet(sheet_name)
+    
+    set_with_dataframe(sheet_destination_sheet, 
+                       df, 
+                       row=1, 
+                       include_column_header=True) 
+
+
+
