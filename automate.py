@@ -84,6 +84,13 @@ def cnv_urlgooglesheet_to_id(url1):
     url = url.replace("https://docs.google.com/spreadsheets/d/", "").split("/")[0]
     return url
 
+
+#แปลง link url google sheet ตัดให้เหลือ id อย่างเดียว
+def cnv_urlgoogledrive_to_id(url1):
+    url = url1
+    url = url.replace("https://drive.google.com/drive/folders/", "").split("/")[0]
+    return url
+
 def listfile_from_googledrive(drive, folder_id):
     file_list = drive.ListFile({'q': "'" + folder_id + "' in parents and trashed=false"}).GetList()
     return file_list
