@@ -234,16 +234,16 @@ def feature_duplicatefile_and_changeowner(url,
         yyyymmdd  ,
         start_run,
         time_string, #now.strftime("%H:%M:%S"),
-        str(list2D_month)
+#         str(list2D_month)
     ]]
 
     sh_link_template = gc.open_by_key(url)
     
     
     df_log_run = pd.DataFrame(list_add, columns =['Date','filter','Start run time','End run time'])
-    append_df_to_sheet(sh_link_template, 'Log Run', df_log_run)
+#     append_df_to_sheet(sh_link_template, 'Log Run', df_log_run)
 
-    return file_main
+    return file_main, df_log_run
     
     
 
