@@ -193,3 +193,9 @@ def clear_value_sheet(sh_link, sheetname,my_range):
     find_lastrow = next_available_row(sh_bot)
     selectrange = str(my_range) + str(find_lastrow)
     sh_link.values_clear("'{}'!{}".format(sheetname, selectrange ))
+    
+    
+def next_available_row(sh_bot):
+#     str_list = list(filter(None, worksheet.col_values(1)))
+#     return str(len(str_list)+1)
+    return len(sh_bot.get_all_values()) + 1
