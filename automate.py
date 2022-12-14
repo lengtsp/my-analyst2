@@ -75,3 +75,9 @@ def my_date():
     print("today", today)
     print("time", time)
     return start_run, time_string, yyyymmdd, dt_string, now1, today, time
+
+#แปลง link url google sheet ตัดให้เหลือ id อย่างเดียว
+def cnv_urlgooglesheet_to_id(url1):
+    url = url1
+    url = url.replace("https://docs.google.com/spreadsheets/d/", "").split("/")[0]
+    return url
