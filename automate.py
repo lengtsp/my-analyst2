@@ -228,7 +228,7 @@ def feature_duplicatefile_and_changeowner(url,
     sh_link_export = gc.open_by_key(file_main['id'])
     delete_sheet_not_use(sh_link_export, val_delete_sheetlist)
     
-    
+    start_run, time_string, yyyymmdd, dt_string, now1, today, time = my_date()
     ##--------- Logfile
     list_add = [[
         yyyymmdd  ,
