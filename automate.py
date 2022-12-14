@@ -81,3 +81,22 @@ def cnv_urlgooglesheet_to_id(url1):
     url = url1
     url = url.replace("https://docs.google.com/spreadsheets/d/", "").split("/")[0]
     return url
+
+
+
+
+## call ตัวแปรจาก google sheet ( เรียกแบบ range) แล้วมาทำเป็น dicitonary
+def feature_call_variable_fromgooglesheet(gc, sheet_lookup, sheet_name, use_col):
+    sheet_lookup = sheet_lookup.replace("https://docs.google.com/spreadsheets/d/", "").split("/")[0]
+    sh_link = gc.open_by_key(sheet_lookup)
+    s_range = sh_link.worksheet(sheet_name)
+
+    #https://stackoverflow.com/questions/60127455/python-gspread-range-in-format-a2a-a1-notation
+    a = list(s_range.batch_get( (use_col,) )[0])
+    
+    #แปลงเป็น dictionary
+    new_list = {}
+    for k, v in a:
+        new_list.setdefault(k, []).append(v)
+    return new_list
+
