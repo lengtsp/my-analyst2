@@ -202,3 +202,65 @@ def next_available_row(sh_bot):
 #     str_list = list(filter(None, worksheet.col_values(1)))
 #     return str(len(str_list)+1)
     return len(sh_bot.get_all_values()) + 1
+
+
+
+
+def feature_duplicatefile_and_changeowner(url, 
+                                          val_destination_folder_backup,
+                                          rename_file,
+                                          val_delete_sheetlist,
+                                          list2D_month,
+                                          sh_link_template):
+                                          
+                                          
+    
+    import pandas as pd
+    
+    drive = connect_google_drive_api()
+    import gspread
+    gc = gspread.oauth() ##appdata roamin gspreadsheet
+    
+    file_main = feature_duplicate_export_file(
+                              drive,
+                              url,
+                              val_destination_folder_backup,
+                              rename_file
+                             )
+    sh_link_export = gc.open_by_key(file_main['id'])
+    delete_sheet_not_use(sh_link_export, val_delete_sheetlist)
+    
+    
+    ##--------- Logfile
+    list_add = [[
+        yyyymmdd  ,
+        start_run,
+        time_string, #now.strftime("%H:%M:%S"),
+        str(list2D_month)
+    ]]
+
+    df_log_run = pd.DataFrame(list_add, columns =['Date','filter','Start run time','End run time'])
+    append_df_to_sheet(sh_link_template, 'Log Run', df_log_run)
+
+    return file_main
+    
+    
+
+    
+def feature_duplicate_export_file(drive, sheet_id, specific_folderid, rename_file):
+    file1 = drive.CreateFile({'id': sheet_id})
+    file1.Upload()                 # Upload new title.
+    file_main = drive.auth.service.files().copy(fileId=sheet_id, body={"parents": [{"id": specific_folderid}], 'title': rename_file}).execute()
+    return file_main
+
+                     
+def delete_sheet_not_use(sh_link, list_del_sheet):
+    for list_sheet in list_del_sheet:
+        obj_sheet_del = sh_link.worksheet(list_sheet)
+        sh_link.del_worksheet(obj_sheet_del)
+        
+def append_df_to_sheet(sh_link, sheetname, df):
+    sh_bot = sh_link.worksheet(sheetname)
+    data_list = df.values.tolist()
+    sh_bot.append_rows(data_list)    
+
