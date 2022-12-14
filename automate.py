@@ -92,6 +92,8 @@ def listfile_from_googledrive(drive, folder_id):
 
 def fnc_loopfrom_googledrive(file_list, val_sheetname, val_column):
     
+    import pandas as pd
+    
     drive = connect_google_drive_api()
     import gspread
     gc = gspread.oauth() ##appdata roamin gspreadsheet
