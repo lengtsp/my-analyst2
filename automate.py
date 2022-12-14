@@ -240,7 +240,7 @@ def feature_duplicatefile_and_changeowner(url,
     sh_link_template = gc.open_by_key(url)
     
     
-    df_log_run = pd.DataFrame(list_add, columns =['Date','filter','Start run time','End run time'])
+    df_log_run = pd.DataFrame(list_add, columns =['Date','Start run time','End run time'])
 #     append_df_to_sheet(sh_link_template, 'Log Run', df_log_run)
 
     return file_main, df_log_run
