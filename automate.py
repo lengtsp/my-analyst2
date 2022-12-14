@@ -96,6 +96,10 @@ def fnc_loopfrom_googledrive(file_list, val_sheetname, val_column):
     import gspread
     gc = gspread.oauth() ##appdata roamin gspreadsheet
     
+    #Create new folder
+    if(os.path.exists('file attach') == False):
+        os.mkdir('file attach')
+    
     
     
     i = 1
