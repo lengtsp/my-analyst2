@@ -17,6 +17,8 @@ def connect_google_drive_api():
 def covert_sheet_to_df(gc, url_mainfile, sheetname):
     import pandas as pd
     
+    url_mainfile = cnv_urlgooglesheet_to_id(url_mainfile)
+    
     sh_link = gc.open_by_key(url_mainfile)
     s_range = sh_link.worksheet(sheetname).get_all_values()
     df = pd.DataFrame(s_range)
