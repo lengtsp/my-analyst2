@@ -186,3 +186,10 @@ def append_tosheet_set_with_dataframe(df, sheet_lookup, sheet_name, my_range):
 
 
 
+
+def clear_value_sheet(sh_link, sheetname,my_range):
+    sh_bot = sh_link.worksheet(sheetname)
+    
+    find_lastrow = next_available_row(sh_bot)
+    selectrange = str(my_range) + str(find_lastrow)
+    sh_link.values_clear("'{}'!{}".format(sheetname, selectrange ))
