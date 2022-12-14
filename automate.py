@@ -268,3 +268,27 @@ def append_df_to_sheet(sh_link, sheetname, df):
     data_list = df.values.tolist()
     sh_bot.append_rows(data_list)    
 
+    
+
+
+def feature_changefile_owner(cell_changeowner_ID, file_main):
+    from apiclient import discovery
+    from pydrive2.auth import GoogleAuth
+    from pydrive2.drive import GoogleDrive
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth() # client_secrets.json need to be in the same directory as the script    
+
+        
+    change_mail_owner = cell_changeowner_ID
+    
+
+    drive_service = discovery.build('drive', 'v3', credentials=gauth.credentials) 
+    permission = {
+                "emailAddress": change_mail_owner,
+                "role": 'owner',
+                "type": 'user',
+    }
+    drive_service.permissions().create(fileId=file_main['id'], body=permission, transferOwnership=True).execute()
+    print('complete')
+    
+    
