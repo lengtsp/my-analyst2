@@ -1,4 +1,7 @@
 ##11111
+from gspread_dataframe import set_with_dataframe
+from gspread_dataframe import get_as_dataframe
+
 
 def cnvlist2str(val):
     listToStr = ''.join(map(str, val))
