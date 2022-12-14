@@ -249,6 +249,9 @@ def feature_duplicatefile_and_changeowner(url,
 
     
 def feature_duplicate_export_file(drive, sheet_id, specific_folderid, rename_file):
+    print("sheet_id", sheet_id)
+    print("specific_folderid", specific_folderid)
+    print("rename_file", rename_file)
     file1 = drive.CreateFile({'id': sheet_id})
     file1.Upload()                 # Upload new title.
     file_main = drive.auth.service.files().copy(fileId=sheet_id, body={"parents": [{"id": specific_folderid}], 'title': rename_file}).execute()
