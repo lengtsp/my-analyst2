@@ -84,6 +84,54 @@ def cnv_urlgooglesheet_to_id(url1):
     url = url.replace("https://docs.google.com/spreadsheets/d/", "").split("/")[0]
     return url
 
+def listfile_from_googledrive(drive, folder_id):
+    file_list = drive.ListFile({'q': "'" + folder_id + "' in parents and trashed=false"}).GetList()
+    return file_list
+
+
+
+def fnc_loopfrom_googledrive(file_list, val_sheetname, val_column):
+    
+    drive = connect_google_drive_api()
+    import gspread
+    gc = gspread.oauth() ##appdata roamin gspreadsheet
+    
+    
+    
+    i = 1
+    for file in file_list:
+
+        extenson = file['title'].split('.')[-1].lower()
+
+        if extenson == 'xlsx' or extenson == 'xlsx' : #กรณีเจอไฟล์ xlsx จะถูก download ข้อมูลลงมาเรียกใช้งาน
+            filename = file['title']
+#             print(filename)
+            
+            downloaded1 = drive.CreateFile({'id':  file['id']})
+            downloaded1.GetContentFile(r'file attach/' + filename) 
+            df_acc = pd.read_excel(
+                                r'file attach/' + filename,
+                                sheet_name=val_sheetname, 
+                                skiprows =3,  
+                                usecols = val_column,   
+                                index_col = None).fillna('')
+                                #nrows= 3
+
+        #add file name when append data in sheet
+        title = file['title']
+        df_acc.insert(0,'name_of_column',title)
+#         df_acc['GL Account No']=df_acc['GL Account No'].astype(str).str.replace('\.0',"")
+
+
+        if(i == 1 ):
+            df1 = df_acc.copy()
+            del df_acc
+        else:
+            df1 = df1.append(df_acc)
+
+        i += 1
+        
+    return df1
 
 
 
