@@ -299,8 +299,7 @@ def feature_sendmail_pattern1_compare(
     rename_file, 
     val_array, 
     subject1, 
-    subject2,
-
+    subject2
 ):
     
 
