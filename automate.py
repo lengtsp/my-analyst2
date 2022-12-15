@@ -3,6 +3,9 @@ from gspread_dataframe import set_with_dataframe
 from gspread_dataframe import get_as_dataframe
 
 
+from datetime import date
+from datetime import datetime
+
 def cnvlist2str(val):
     listToStr = ''.join(map(str, val))
     return listToStr
