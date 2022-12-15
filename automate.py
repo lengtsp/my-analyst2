@@ -301,7 +301,7 @@ def feature_sendmail_pattern1_compare(
     subject1, 
     subject2
 ):
-    
+    start_run, time_string, yyyymmdd, dt_string, now1, today, time = my_date()
 
     
     if(cnvlist2str(val_array['ต้องการเปิดใช้ Function ส่งเมลหรือไม่']) == "Y"): 
