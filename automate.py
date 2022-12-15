@@ -372,3 +372,10 @@ def feature_sendmail(sender_address,
     text = message.as_string()
     session.sendmail(sender_address, receiver_address, text)
     session.quit()
+    
+    
+#convert date to string
+def cnv_date2str(field, df):
+    df[field] = df[field].astype(str).str.replace(" 00:00:00","")
+
+
