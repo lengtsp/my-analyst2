@@ -302,7 +302,8 @@ def feature_sendmail_pattern1_compare(
     rename_file, 
     val_array, 
     subject1, 
-    subject2
+    subject2,
+    string_messge
 ):
     start_run, time_string, yyyymmdd, dt_string, now1, today, time = my_date()
 
@@ -328,6 +329,7 @@ def feature_sendmail_pattern1_compare(
                    datetime.now().strftime("%H:%M:%S"),
                    cnvlist2str(val_array['val_folderbackup - link แนบใน email ข้อ 2']),
                    cnvlist2str(val_array['val_templatesetting - link แนบใน email ข้อ 3']),
+                   string_messge
 
 
                    )
