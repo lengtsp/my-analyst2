@@ -292,3 +292,81 @@ def feature_changefile_owner(cell_changeowner_ID, file_main):
     print('complete')
     
     
+
+
+def feature_sendmail_pattern1_compare(
+    file_main, 
+    rename_file, 
+    val_array, 
+    subject1, 
+    subject2,
+
+):
+    
+
+    
+    if(cnvlist2str(val_array['ต้องการเปิดใช้ Function ส่งเมลหรือไม่']) == "Y"): 
+        
+        
+        email_subject = '[Automate' + '] ' + cnvlist2str(val_array[subject1]) + " " + cnvlist2str(val_array[subject2]) + ' .'
+
+        mail_content = '''
+        <u><b>Result</b></u><br>
+        %s
+        <br>
+        <br>
+        <u><b>Log</b></u><br>
+        1. เริ่มรัน ณ เวลา %s สิ้นสุด ณ %s <br>
+        2. Folder Backup Google Sheets %s <br>
+        3. กรณีต้องการ Setting เงื่อนไขเพิ่มเติมด้วยตนเอง %s <br>
+        <br>
+        ''' % (    
+                   '<a href="'+ file_main['alternateLink']+'">' + rename_file + '</a>',
+                   start_run, 
+                   datetime.now().strftime("%H:%M:%S"),
+                   cnvlist2str(val_array['val_folderbackup - link แนบใน email ข้อ 2']),
+                   cnvlist2str(val_array['val_templatesetting - link แนบใน email ข้อ 3']),
+
+
+                   )
+
+    #------------------------
+    feature_sendmail(cnvlist2str(val_array['Sender address']), 
+                     cnvlist2str(val_array['Sender pass']),
+                     cnvlist2str(val_array['To (ผู้รับเมล : receiver_address)']),
+                     email_subject,
+                     mail_content
+                    )
+   
+
+
+
+def feature_sendmail(sender_address, 
+                 sender_pass,
+                 receiver_address,
+                 email_subject,
+                 mail_content
+                ):
+    #python send gmail with smtp geekshare
+    import smtplib
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+
+    #Setup the MIME
+    message = MIMEMultipart()
+    message['From'] = sender_address
+
+    receiver_address = receiver_address.split(",")
+    receiver_address = [i.lstrip() for i in receiver_address]
+    message['To'] = ", ".join(receiver_address)
+
+    message['Subject'] = email_subject   #The subject line
+    #The body and the attachments for the mail
+    message.attach(MIMEText(mail_content, 'html')) #ตัวเลือกว่าจะแสดงแบบ text, html
+    #Create SMTP session for sending the mail
+    session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+    session.starttls() #enable security
+    session.login(sender_address, sender_pass) #login with mail_id and password
+    text = message.as_string()
+    session.sendmail(sender_address, receiver_address, text)
+    session.quit()
