@@ -323,6 +323,7 @@ def feature_sendmail_pattern1_compare(
         2. Folder Backup Google Sheets %s <br>
         3. กรณีต้องการ Setting เงื่อนไขเพิ่มเติมด้วยตนเอง %s <br>
         <br>
+        %s
         ''' % (    
                    '<a href="'+ file_main['alternateLink']+'">' + rename_file + '</a>',
                    start_run, 
