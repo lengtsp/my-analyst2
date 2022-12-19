@@ -381,4 +381,16 @@ def feature_sendmail(sender_address,
 def cnv_date2str(field, df):
     df[field] = df[field].astype(str).str.replace(" 00:00:00","")
 
+    print(year)
+    
+    
+def show_currentyear():
+    #show sysdate extract sys year
+    import datetime
+    today = datetime.date.today()
+    year = today.year
+    print(year)
+    
+    return year
+
 
